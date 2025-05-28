@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { createClinic } from "@/actions";
+import { createClinic } from "@/actions/create-clinic";
 
 const clinicFormSchema = z.object({
   name: z.string().trim().min(1, { message: "Nome é obrigatório" }),
