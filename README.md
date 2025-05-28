@@ -13,6 +13,18 @@ O projeto utiliza as seguintes tecnologias:
 - [Drizzle ORM](https://orm.drizzle.team/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [shadcn/ui](https://ui.shadcn.com/) com [sistema de temas](https://ui.shadcn.com/themes)
+- [Radix UI](https://www.radix-ui.com/) - Biblioteca de componentes acessíveis
+- [Lucide React](https://lucide.dev/) - Biblioteca de ícones
+
+## Autenticação
+
+O projeto implementa um sistema de autenticação completo com:
+
+- Login/Registro de usuários
+- Recuperação de senha
+- Autenticação baseada em JWT
+- Proteção de rotas
+- Diferentes níveis de acesso (Admin, Médico, Paciente)
 
 ## Configuração do Ambiente
 
@@ -65,7 +77,10 @@ doutor-agenda/
 ├── app/              # Aplicação Next.js
 ├── components/       # Componentes React reutilizáveis
 ├── db/               # Configuração do Drizzle ORM e esquemas
+├── lib/              # Utilitários e funções auxiliares
+├── providers/        # Providers React (temas, autenticação)
 ├── public/           # Arquivos estáticos
+├── hooks/            # Custom hooks React
 └── ...
 ```
 
@@ -94,6 +109,20 @@ Tipos comuns:
 - `refactor`: Refatoração de código
 - `test`: Adicionando testes
 - `chore`: Atualizações de tarefas de build, configurações, etc; Sem alteração de código
+
+## Instruções para Desenvolvimento
+
+### Adicionando Componentes UI
+
+Este projeto utiliza [shadcn/ui](https://ui.shadcn.com/) para componentes reutilizáveis. Para adicionar novos componentes:
+
+```bash
+npx shadcn-ui@latest add [nome-do-componente]
+```
+
+### Estilização e Temas
+
+O projeto utiliza o sistema de temas do shadcn/ui. Os temas podem ser visualizados e customizados em: https://ui.shadcn.com/themes
 
 ## Licença
 
