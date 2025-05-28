@@ -15,10 +15,13 @@ O projeto utiliza as seguintes tecnologias:
 - [shadcn/ui](https://ui.shadcn.com/) com [sistema de temas](https://ui.shadcn.com/themes)
 - [Radix UI](https://www.radix-ui.com/) - Biblioteca de componentes acessíveis
 - [Lucide React](https://lucide.dev/) - Biblioteca de ícones
+- [Zod v4](https://zod.dev/v4) - Validação de esquemas TypeScript
+- [Better Auth](https://www.better-auth.com/) - Sistema de autenticação completo
+- [Sonner](https://sonner.emilkowal.ski/) - Biblioteca de notificações toast
 
 ## Autenticação
 
-O projeto implementa um sistema de autenticação completo com:
+O projeto implementa um sistema de autenticação completo com [Better Auth](https://www.better-auth.com/), oferecendo:
 
 - Login/Registro de usuários
 - Recuperação de senha
