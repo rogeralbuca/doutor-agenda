@@ -6,18 +6,22 @@ Sistema de agendamento médico desenvolvido como parte do Bootcamp Fullstack Clu
 
 O projeto utiliza as seguintes tecnologias:
 
-- [Next.js 15](https://nextjs.org/)
-- [React 19](https://react.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [TailwindCSS 4](https://tailwindcss.com/)
-- [Drizzle ORM](https://orm.drizzle.team/)
-- [PostgreSQL](https://www.postgresql.org/)
-- [shadcn/ui](https://ui.shadcn.com/) com [sistema de temas](https://ui.shadcn.com/themes)
-- [Radix UI](https://www.radix-ui.com/) - Biblioteca de componentes acessíveis
-- [Lucide React](https://lucide.dev/) - Biblioteca de ícones
-- [Zod v4](https://zod.dev/v4) - Validação de esquemas TypeScript
-- [Better Auth](https://www.better-auth.com/) - Sistema de autenticação completo
-- [Sonner](https://sonner.emilkowal.ski/) - Biblioteca de notificações toast
+- [Next.js 15](https://nextjs.org/) - Framework React para produção
+- [React 19](https://react.dev/) - Biblioteca para construção de interfaces
+- [TypeScript](https://www.typescriptlang.org/) - JavaScript tipado
+- [TailwindCSS 4](https://tailwindcss.com/) - Framework CSS utilitário
+- [Drizzle ORM](https://orm.drizzle.team/) - ORM TypeScript-first
+- [PostgreSQL](https://www.postgresql.org/) via [Neon](https://neon.tech) - Banco de dados relacional
+- [shadcn/ui](https://ui.shadcn.com/) - Componentes de UI reutilizáveis
+- [Radix UI](https://www.radix-ui.com/) - Primitivos de UI acessíveis
+- [Lucide React](https://lucide.dev/) - Ícones SVG
+- [Zod](https://zod.dev/) - Validação de esquemas TypeScript
+- [Auth.js](https://authjs.dev/) - Sistema de autenticação (alternativa ao Better Auth)
+- [Sonner](https://sonner.emilkowal.ski/) - Notificações toast
+- [React Hook Form](https://react-hook-form.com/) - Gerenciamento de formulários
+- [Day.js](https://day.js.org/) - Manipulação de datas
+
+Nota: A lista acima reflete as tecnologias atualmente implementadas e planejadas para o projeto. Algumas bibliotecas mencionadas anteriormente como Better Auth, Next Safe Action, React Number Format e Recharts podem ser consideradas conforme o desenvolvimento avance.
 
 ## Autenticação
 
@@ -78,14 +82,30 @@ Para gerenciar o banco de dados PostgreSQL, o projeto utiliza Drizzle ORM:
 
 ```
 doutor-agenda/
-├── app/              # Aplicação Next.js
+├── actions/          # Server actions type-safe com Next Safe Action
+├── app/              # Aplicação Next.js e rotas da aplicação
+│   ├── (auth)/       # Rotas de autenticação (login, registro, etc.)
+│   ├── (dashboard)/  # Área restrita do sistema após login
+│   ├── api/          # Rotas de API
+│   └── layout.tsx    # Layout principal da aplicação
 ├── components/       # Componentes React reutilizáveis
+│   ├── ui/           # Componentes de UI do shadcn
+│   ├── forms/        # Componentes de formulário
+│   └── shared/       # Componentes compartilhados
+├── config/           # Arquivos de configuração
 ├── db/               # Configuração do Drizzle ORM e esquemas
+│   ├── migrations/   # Migrações do banco de dados
+│   ├── schema/       # Definição dos esquemas das tabelas
+│   └── index.ts      # Configuração de conexão
+├── emails/           # Templates de emails
+├── hooks/            # Custom hooks React
 ├── lib/              # Utilitários e funções auxiliares
+├── middleware.ts     # Middleware Next.js para proteção de rotas
 ├── providers/        # Providers React (temas, autenticação)
 ├── public/           # Arquivos estáticos
-├── hooks/            # Custom hooks React
-└── ...
+├── schemas/          # Esquemas de validação Zod
+├── styles/           # Estilos globais
+└── types/            # Definições de tipos TypeScript
 ```
 
 ## Padrões de Desenvolvimento
