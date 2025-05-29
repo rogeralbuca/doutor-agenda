@@ -39,6 +39,7 @@ import { getAvailability } from "../helpers/availability";
 
 import { formatCurrencyInCents } from "@/helpers/currency";
 import UpsertDoctorForm from "./upsert-doctor-form";
+import { UserAvatar } from "../../components/user-avatar";
 
 interface DoctorCardProps {
   doctor: typeof doctorsTable.$inferSelect;
@@ -64,15 +65,14 @@ const DoctorCard = ({ doctor }: DoctorCardProps) => {
     .split(" ")
     .map((name) => name[0])
     .join("");
+
   const availability = getAvailability(doctor);
 
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center gap-2">
-          <Avatar className="h-10 w-10">
-            <AvatarFallback>{doctorInitials}</AvatarFallback>
-          </Avatar>
+          <UserAvatar userName={doctor.name || "Doutor"} />
           <div>
             <h3 className="text-sm font-medium">{doctor.name}</h3>
             <p className="text-muted-foreground text-sm">{doctor.specialty}</p>

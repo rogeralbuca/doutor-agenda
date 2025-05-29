@@ -10,8 +10,6 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,6 +29,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { authClient } from "@/lib/auth-client";
+import { UserAvatar } from "./user-avatar";
 
 const items = [
   {
@@ -99,9 +98,9 @@ export function AppSidebar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton size="lg">
-                  <Avatar>
-                    <AvatarFallback>F</AvatarFallback>
-                  </Avatar>
+                  <UserAvatar
+                    userName={session.data?.user?.clinic?.name || "Clinica"}
+                  />
                   <div>
                     <p className="text-sm">
                       {session.data?.user?.clinic?.name}
