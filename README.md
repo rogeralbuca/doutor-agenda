@@ -72,6 +72,7 @@ Para gerenciar o banco de dados PostgreSQL, o projeto utiliza Drizzle ORM:
 
 - `npx drizzle-kit push:pg` - Atualiza o esquema do banco de dados
 - `npx drizzle-kit studio` - Interface visual para gerenciar o banco de dados
+- `https://console.neon.tech/app/projects` - Console banco de dados Neon
 
 ## Estrutura do Projeto
 
