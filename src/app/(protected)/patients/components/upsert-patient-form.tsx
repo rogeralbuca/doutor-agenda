@@ -32,6 +32,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { patientsTable } from "@/db/schema";
 
 const formSchema = z.object({
   name: z.string().trim().min(1, {
@@ -51,17 +52,18 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 interface UpsertPatientFormProps {
+  patient?: typeof patientsTable.$inferSelect;
   onSuccess?: () => void;
 }
 
-const UpsertPatientForm = ({ onSuccess }: UpsertPatientFormProps) => {
+const UpsertPatientForm = ({ patient, onSuccess }: UpsertPatientFormProps) => {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      phoneNumber: "",
-      sex: undefined,
+      name: patient?.name || "",
+      email: patient?.email || "",
+      phoneNumber: patient?.phoneNumber || "",
+      sex: patient?.sex || undefined,
     },
   });
 
@@ -75,17 +77,24 @@ const UpsertPatientForm = ({ onSuccess }: UpsertPatientFormProps) => {
       toast.error("Erro ao salvar paciente. Tente novamente.");
     },
   });
-
   const handleSubmit = (data: FormData) => {
-    execute(data);
+    execute({
+      ...data,
+      id: patient?.id,
+    });
   };
 
   return (
     <DialogContent className="sm:max-w-md">
+      {" "}
       <DialogHeader>
-        <DialogTitle>Adicionar paciente</DialogTitle>
+        <DialogTitle>
+          {patient ? "Editar paciente" : "Adicionar paciente"}
+        </DialogTitle>
         <DialogDescription>
-          Preencha as informações do paciente para adicioná-lo à sua clínica.
+          {patient
+            ? "Edite as informações do paciente."
+            : "Preencha as informações do paciente para adicioná-lo à sua clínica."}
         </DialogDescription>
       </DialogHeader>
       <Form {...form}>
@@ -103,7 +112,6 @@ const UpsertPatientForm = ({ onSuccess }: UpsertPatientFormProps) => {
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
             name="email"
@@ -121,7 +129,6 @@ const UpsertPatientForm = ({ onSuccess }: UpsertPatientFormProps) => {
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
             name="phoneNumber"
@@ -144,7 +151,6 @@ const UpsertPatientForm = ({ onSuccess }: UpsertPatientFormProps) => {
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
             name="sex"
@@ -165,11 +171,10 @@ const UpsertPatientForm = ({ onSuccess }: UpsertPatientFormProps) => {
                 <FormMessage />
               </FormItem>
             )}
-          />
-
+          />{" "}
           <DialogFooter>
             <Button type="submit" disabled={isExecuting}>
-              {isExecuting ? "Salvando..." : "Adicionar"}
+              {isExecuting ? "Salvando..." : patient ? "Salvar" : "Adicionar"}
             </Button>
           </DialogFooter>
         </form>
