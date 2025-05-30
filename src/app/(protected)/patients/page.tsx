@@ -15,7 +15,7 @@ import { db } from "@/db";
 import { patientsTable } from "@/db/schema";
 import { auth } from "@/lib/auth";
 import AddPatientButton from "./components/add-patient-button";
-import PatientCard from "./components/patient-card";
+import PatientsList from "./components/patients-list";
 
 const PatientsPage = async () => {
   const session = await auth.api.getSession({
@@ -46,25 +46,10 @@ const PatientsPage = async () => {
         </PageHeaderContent>
         <PageActions>
           <AddPatientButton />
-        </PageActions>
+        </PageActions>{" "}
       </PageHeader>
       <PageContent>
-        {patients.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-12 text-center">
-            <p className="text-muted-foreground text-lg font-medium">
-              Nenhum paciente cadastrado
-            </p>
-            <p className="text-muted-foreground text-sm">
-              Adicione seu primeiro paciente para começar
-            </p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {patients.map((patient) => (
-              <PatientCard key={patient.id} patient={patient} />
-            ))}
-          </div>
-        )}
+        <PatientsList patients={patients} />
       </PageContent>
     </PageContainer>
   );
