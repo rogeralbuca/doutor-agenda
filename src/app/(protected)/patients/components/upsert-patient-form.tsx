@@ -33,6 +33,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { patientsTable } from "@/db/schema";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   name: z.string().trim().min(1, {
@@ -52,11 +53,16 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 interface UpsertPatientFormProps {
+  isOpen?: boolean;
   patient?: typeof patientsTable.$inferSelect;
   onSuccess?: () => void;
 }
 
-const UpsertPatientForm = ({ patient, onSuccess }: UpsertPatientFormProps) => {
+const UpsertPatientForm = ({
+  patient,
+  onSuccess,
+  isOpen,
+}: UpsertPatientFormProps) => {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -66,6 +72,17 @@ const UpsertPatientForm = ({ patient, onSuccess }: UpsertPatientFormProps) => {
       sex: patient?.sex || undefined,
     },
   });
+
+  useEffect(() => {
+    if (isOpen) {
+      form.reset({
+        name: patient?.name || "",
+        email: patient?.email || "",
+        phoneNumber: patient?.phoneNumber || "",
+        sex: patient?.sex || undefined,
+      });
+    }
+  }, [isOpen, form, patient]);
 
   const { execute, isExecuting } = useAction(upsertPatient, {
     onSuccess() {

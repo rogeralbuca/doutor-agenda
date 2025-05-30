@@ -106,6 +106,7 @@ const PatientCard = ({ patient }: PatientCardProps) => {
           <UpsertPatientForm
             patient={patient}
             onSuccess={() => setIsUpsertPatientDialogOpen(false)}
+            isOpen={isUpsertPatientDialogOpen}
           />
         </Dialog>
         <AlertDialog>
