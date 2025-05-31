@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { DataTable } from "@/components/ui/data-table";
 import { appointmentsTable, doctorsTable, patientsTable } from "@/db/schema";
-import { columns } from "./table-columns";
+import { createColumns } from "./table-columns";
 import AppointmentsFilters from "./appointments-filters";
 import dayjs from "dayjs";
 
@@ -28,6 +28,11 @@ export function AppointmentsClientPage({
     dateFrom: "",
     dateTo: "",
   });
+
+  const columns = useMemo(
+    () => createColumns({ patients, doctors }),
+    [patients, doctors],
+  );
 
   const filteredAppointments = useMemo(() => {
     return appointments.filter((appointment) => {

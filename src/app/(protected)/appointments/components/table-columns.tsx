@@ -14,7 +14,12 @@ type AppointmentWithRelations = typeof appointmentsTable.$inferSelect & {
   doctor: typeof doctorsTable.$inferSelect;
 };
 
-export const columns: ColumnDef<AppointmentWithRelations>[] = [
+interface ColumnsProps {
+  patients: (typeof patientsTable.$inferSelect)[];
+  doctors: (typeof doctorsTable.$inferSelect)[];
+}
+
+export const createColumns = ({ patients, doctors }: ColumnsProps): ColumnDef<AppointmentWithRelations>[] => [
   {
     accessorKey: "patient.name",
     header: "Paciente",
@@ -55,12 +60,11 @@ export const columns: ColumnDef<AppointmentWithRelations>[] = [
         </div>
       );
     },
-  },
-  {
+  },  {
     id: "actions",
     header: "Ações",
     cell: ({ row }) => {
-      return <TableActions appointment={row.original} />;
+      return <TableActions appointment={row.original} patients={patients} doctors={doctors} />;
     },
   },
 ];

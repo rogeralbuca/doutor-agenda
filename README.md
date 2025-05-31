@@ -16,12 +16,14 @@ O projeto utiliza as seguintes tecnologias:
 - [Radix UI](https://www.radix-ui.com/) - Primitivos de UI acessíveis
 - [Lucide React](https://lucide.dev/) - Ícones SVG
 - [Zod](https://zod.dev/) - Validação de esquemas TypeScript
-- [Auth.js](https://authjs.dev/) - Sistema de autenticação (alternativa ao Better Auth)
+- [Better Auth](https://www.better-auth.com/) - Sistema de autenticação moderno
+- [Next Safe Action](https://next-safe-action.dev/) - Server Actions type-safe
 - [Sonner](https://sonner.emilkowal.ski/) - Notificações toast
 - [React Hook Form](https://react-hook-form.com/) - Gerenciamento de formulários
 - [Day.js](https://day.js.org/) - Manipulação de datas
-
-Nota: A lista acima reflete as tecnologias atualmente implementadas e planejadas para o projeto. Algumas bibliotecas mencionadas anteriormente como Better Auth, Next Safe Action, React Number Format e Recharts podem ser consideradas conforme o desenvolvimento avance.
+- [React Number Format](https://react-number-format.com/) - Formatação de números e valores
+- [TanStack React Table](https://tanstack.com/table/latest) - Tabelas avançadas com paginação e filtros
+- [TanStack React Query](https://tanstack.com/query/latest) - Gerenciamento de estado servidor
 
 ## Autenticação
 
@@ -31,7 +33,8 @@ O projeto implementa um sistema de autenticação completo com [Better Auth](htt
 - Recuperação de senha
 - Autenticação baseada em JWT
 - Proteção de rotas
-- Diferentes níveis de acesso (Admin, Médico, Paciente)
+- Gestão de sessões seguras
+- Sistema de clínicas multi-tenant
 
 ## Configuração do Ambiente
 

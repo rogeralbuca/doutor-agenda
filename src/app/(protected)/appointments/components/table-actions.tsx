@@ -35,6 +35,7 @@ import { useState } from "react";
 import { deleteAppointmentAction } from "@/actions/delete-appointment";
 import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
+import EditAppointmentForm from "./edit-appointment-form";
 
 dayjs.locale("pt-br");
 
@@ -45,10 +46,17 @@ type AppointmentWithRelations = typeof appointmentsTable.$inferSelect & {
 
 interface TableActionsProps {
   appointment: AppointmentWithRelations;
+  patients: (typeof patientsTable.$inferSelect)[];
+  doctors: (typeof doctorsTable.$inferSelect)[];
 }
 
-const TableActions = ({ appointment }: TableActionsProps) => {
+const TableActions = ({
+  appointment,
+  patients,
+  doctors,
+}: TableActionsProps) => {
   const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const appointmentDate = dayjs(appointment.date);
 
   const { execute: deleteAppointment, isExecuting: isDeletingAppointment } =
@@ -60,10 +68,8 @@ const TableActions = ({ appointment }: TableActionsProps) => {
         toast.error(error.error.serverError || "Erro ao cancelar agendamento");
       },
     });
-
   const handleEdit = () => {
-    // TODO: Implementar edição
-    console.log("Editando agendamento:", appointment.id);
+    setIsEditDialogOpen(true);
   };
 
   const handleCancel = () => {
@@ -126,7 +132,22 @@ const TableActions = ({ appointment }: TableActionsProps) => {
                 )}
               </span>
             </div>
-          </div>
+          </div>{" "}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="sm:max-w-[600px]">
+          <DialogHeader>
+            <DialogTitle>Editar Agendamento</DialogTitle>
+          </DialogHeader>
+          <EditAppointmentForm
+            appointment={appointment}
+            patients={patients}
+            doctors={doctors}
+            onSuccess={() => setIsEditDialogOpen(false)}
+            onCancel={() => setIsEditDialogOpen(false)}
+          />
         </DialogContent>
       </Dialog>
 
