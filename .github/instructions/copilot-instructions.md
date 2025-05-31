@@ -65,6 +65,10 @@ Você é um engenheiro de software sênior especializado em desenvolvimento web 
 
 - Sempre use `src/db/index.ts` para interações com o banco de dados
 
+### Scripts SQL
+
+Na pasta `.neon/` estão localizados scripts SQL para popular o banco de dados com dado
+
 ### Utilitários Específicos
 
 - Use a biblioteca **dayjs** para manipular e formatar datas
