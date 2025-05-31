@@ -1,12 +1,11 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { getNameInitials } from "@/helpers/name-initials-helper";
 import { appointmentsTable, patientsTable, doctorsTable } from "@/db/schema";
 import { Calendar } from "lucide-react";
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
+import { UserAvatar } from "../../components/user-avatar";
 
 dayjs.locale("pt-br");
 
@@ -45,11 +44,7 @@ export function AppointmentsCard({ appointments }: AppointmentsCardProps) {
           upcomingAppointments.map((appointment, index) => (
             <div key={appointment.id}>
               <div className="flex items-center gap-3">
-                <Avatar className="h-10 w-10">
-                  <AvatarFallback className="bg-primary/10 text-primary font-semibold">
-                    {getNameInitials(appointment.patient.name)}
-                  </AvatarFallback>
-                </Avatar>
+                <UserAvatar userName={appointment.patient.name} />
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-medium">
                     {appointment.patient.name}

@@ -1,10 +1,3 @@
-import { eq } from "drizzle-orm";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
-
-import { db } from "@/db";
-import { usersToClinicsTable } from "@/db/schema";
-import { auth } from "@/lib/auth";
 import {
   PageContainer,
   PageContent,
@@ -13,7 +6,8 @@ import {
   PageHeaderContent,
   PageTitle,
 } from "@/components/ui/page-container";
-import { getDashboardData } from "./helpers/dashboard-data";
+import { AuthService } from "@/services/auth-service";
+import { DashboardService } from "@/services/dashboard-service";
 import { DashboardMetrics } from "./components/dashboard-metrics";
 import { AppointmentsChart } from "./components/appointments-chart";
 import { DoctorsCard } from "./components/doctors-card";
@@ -21,21 +15,8 @@ import { SpecialtiesCard } from "./components/specialties-card";
 import { AppointmentsCard } from "./components/appointments-card";
 
 const DashboardPage = async () => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-  if (!session?.user) {
-    redirect("/authentication");
-  }
-
-  const clinics = await db.query.usersToClinicsTable.findMany({
-    where: eq(usersToClinicsTable.userId, session.user.id),
-  });
-  if (clinics.length === 0) {
-    redirect("/clinic-form");
-  }
-
-  const dashboardData = await getDashboardData(session.user.id);
+  const { user } = await AuthService.getAuthenticatedUserWithClinic();
+  const dashboardData = await DashboardService.getDashboardData(user.id);
 
   return (
     <PageContainer>
@@ -45,9 +26,9 @@ const DashboardPage = async () => {
           <PageDescription>
             Acesse uma visão geral detalhada das principais métricas e
             resultados dos pacientes
-          </PageDescription>
+          </PageDescription>{" "}
         </PageHeaderContent>
-      </PageHeader>{" "}
+      </PageHeader>
       <PageContent>
         <div className="space-y-6">
           {/* Métricas principais */}

@@ -1,13 +1,12 @@
 "use client";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { getNameInitials } from "@/helpers/name-initials-helper";
 import { doctorsTable } from "@/db/schema";
 import { Stethoscope } from "lucide-react";
+import { UserAvatar } from "../../components/user-avatar";
 
 interface DoctorsCardProps {
   doctors: (typeof doctorsTable.$inferSelect & {
@@ -37,11 +36,7 @@ export function DoctorsCard({ doctors }: DoctorsCardProps) {
         {topDoctors.map((doctor, index) => (
           <div key={doctor.id}>
             <div className="flex items-center gap-3">
-              <Avatar className="h-10 w-10">
-                <AvatarFallback className="bg-primary/10 text-primary font-semibold">
-                  {getNameInitials(doctor.name)}
-                </AvatarFallback>
-              </Avatar>
+              <UserAvatar userName={doctor.name} />
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-medium">{doctor.name}</p>
                 <p className="text-muted-foreground text-xs">

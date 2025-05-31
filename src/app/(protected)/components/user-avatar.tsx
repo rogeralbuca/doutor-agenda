@@ -8,7 +8,9 @@ export function UserAvatar({ userName }: { userName: string }) {
 
   return (
     <Avatar className="h-10 w-10">
-      <AvatarFallback>{initials}</AvatarFallback>
+      <AvatarFallback className="bg-primary/10 text-primary font-semibold">
+        {initials}
+      </AvatarFallback>
     </Avatar>
   );
 }
