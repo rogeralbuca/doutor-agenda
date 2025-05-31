@@ -81,10 +81,21 @@ Para gerenciar o banco de dados PostgreSQL, o projeto utiliza Drizzle ORM:
 - `npx drizzle-kit studio` - Interface visual para gerenciar o banco de dados
 - `https://console.neon.tech/app/projects` - Console banco de dados Neon
 
+### Scripts de Dados de Exemplo
+
+Na pasta `.neon/` estão localizados scripts SQL para popular o banco de dados com dados de exemplo:
+
+- `insert-doctors.sql` - Script para inserir médicos de exemplo com diferentes especialidades
+- `insert-patients.sql` - Script para inserir pacientes de exemplo
+- `insert-appointments.sql` - Script para inserir consultas de exemplo
+
+**Importante:** Antes de executar os scripts, substitua `'YOUR_CLINIC_ID'` pelo ID real da sua clínica nos arquivos SQL.
+
 ## Estrutura do Projeto
 
 ```
 doutor-agenda/
+├── .neon/           # Scripts SQL para popular o banco com dados de exemplo
 ├── actions/          # Server actions type-safe com Next Safe Action
 ├── app/              # Aplicação Next.js e rotas da aplicação
 │   ├── (auth)/       # Rotas de autenticação (login, registro, etc.)
