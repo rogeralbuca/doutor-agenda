@@ -1,5 +1,3 @@
-"use client";
-
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,10 +20,8 @@ interface AppointmentsCardProps {
 }
 
 export function AppointmentsCard({ appointments }: AppointmentsCardProps) {
-  const upcomingAppointments = appointments
-    .filter((appointment) => dayjs(appointment.date).isAfter(dayjs()))
-    .sort((a, b) => dayjs(a.date).diff(dayjs(b.date)))
-    .slice(0, 5);
+  // Os agendamentos já vêm filtrados e ordenados do servidor
+  const upcomingAppointments = appointments;
 
   return (
     <Card>

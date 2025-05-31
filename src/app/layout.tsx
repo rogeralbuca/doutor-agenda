@@ -1,4 +1,5 @@
 import { ReactQueryProvider } from "@/providers/react-query";
+import { HydrationWarningSupressor } from "@/components/ui/hydration-warning-supressor";
 import "./globals.css";
 
 import type { Metadata } from "next";
@@ -27,10 +28,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
+        <HydrationWarningSupressor />
         <ReactQueryProvider>{children}</ReactQueryProvider>
         <Toaster position="bottom-center" richColors theme="light" />
       </body>

@@ -82,11 +82,10 @@ export async function getDashboardData(userId: string) {
         percentage: totalAppointmentsBySpecialty > 0
             ? Math.round((count / totalAppointmentsBySpecialty) * 100)
             : 0,
-    }));
-
-    // Dados do gráfico - últimos 7 dias
+    }));    // Dados do gráfico - últimos 7 dias (baseado na data atual do servidor)
+    const today = dayjs().startOf('day');
     const last7Days = Array.from({ length: 7 }, (_, i) => {
-        const date = dayjs().subtract(i, "day");
+        const date = today.subtract(i, "day");
         const dayAppointments = appointments.filter((appointment) =>
             dayjs(appointment.date).isSame(date, "day")
         );
@@ -95,7 +94,12 @@ export async function getDashboardData(userId: string) {
             day: date.format("ddd"),
             appointments: dayAppointments.length,
         };
-    }).reverse();
+    }).reverse();    // Filtrar agendamentos futuros no servidor
+    const now = dayjs();
+    const upcomingAppointments = appointments
+        .filter((appointment) => dayjs(appointment.date).isAfter(now))
+        .sort((a, b) => dayjs(a.date).diff(dayjs(b.date)))
+        .slice(0, 5);
 
     return {
         metrics: {
@@ -106,7 +110,7 @@ export async function getDashboardData(userId: string) {
         },
         doctorsWithAppointments,
         specialties,
-        appointments,
+        appointments: upcomingAppointments,
         chartData: last7Days,
     };
 }
