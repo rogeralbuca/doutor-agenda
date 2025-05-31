@@ -132,7 +132,9 @@ const UpsertDoctorForm = ({
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>{doctor ? doctor.name : "Adicionar médico"}</DialogTitle>
+        <DialogTitle>
+          {doctor ? "Editar médico" : "Adicionar médico"}
+        </DialogTitle>
         <DialogDescription>
           {doctor
             ? "Edite as informações desse médico."
@@ -403,11 +405,7 @@ const UpsertDoctorForm = ({
           />
           <DialogFooter>
             <Button type="submit" disabled={upsertDoctorAction.isPending}>
-              {upsertDoctorAction.isPending
-                ? "Salvando..."
-                : doctor
-                  ? "Salvar"
-                  : "Adicionar"}
+              {upsertDoctorAction.isPending ? "Salvando..." : "Salvar"}
             </Button>
           </DialogFooter>
         </form>

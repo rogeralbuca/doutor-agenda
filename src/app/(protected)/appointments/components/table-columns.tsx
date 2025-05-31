@@ -19,7 +19,7 @@ export const columns: ColumnDef<AppointmentWithRelations>[] = [
     accessorKey: "patient.name",
     header: "Paciente",
     cell: ({ row }) => {
-      return <div className="font-medium">{row.original.patient.name}</div>;
+      return <div>{row.original.patient.name}</div>;
     },
   },
   {
@@ -27,29 +27,21 @@ export const columns: ColumnDef<AppointmentWithRelations>[] = [
     header: "Data",
     cell: ({ row }) => {
       const date = dayjs(row.getValue("date"));
-      return (
-        <div className="font-medium">
-          {date.format("DD/MM/YYYY [às] HH:mm")}
-        </div>
-      );
+      return <div>{date.format("DD/MM/YYYY [às] HH:mm")}</div>;
     },
   },
   {
     accessorKey: "doctor.name",
     header: "Médico",
     cell: ({ row }) => {
-      return <div className="font-medium">{row.original.doctor.name}</div>;
+      return <div>{row.original.doctor.name}</div>;
     },
   },
   {
     accessorKey: "doctor.specialty",
     header: "Especialidade",
     cell: ({ row }) => {
-      return (
-        <div className="text-muted-foreground">
-          {row.original.doctor.specialty}
-        </div>
-      );
+      return <div>{row.original.doctor.specialty}</div>;
     },
   },
   {
@@ -58,7 +50,7 @@ export const columns: ColumnDef<AppointmentWithRelations>[] = [
     cell: ({ row }) => {
       const priceInCents = row.original.doctor.appointmentPriceInCents;
       return (
-        <div className="font-medium text-green-600">
+        <div className="text-green-600">
           {formatCurrencyInCents(priceInCents)}
         </div>
       );

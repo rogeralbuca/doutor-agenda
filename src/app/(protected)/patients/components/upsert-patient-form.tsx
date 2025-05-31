@@ -191,7 +191,7 @@ const UpsertPatientForm = ({
           />{" "}
           <DialogFooter>
             <Button type="submit" disabled={isExecuting}>
-              {isExecuting ? "Salvando..." : patient ? "Salvar" : "Adicionar"}
+              {isExecuting ? "Salvando..." : "Salvar"}
             </Button>
           </DialogFooter>
         </form>

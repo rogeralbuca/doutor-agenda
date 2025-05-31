@@ -29,13 +29,12 @@ const AddAppointmentButton = ({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <Plus className="mr-2 h-4 w-4" />
-          Agendar consulta
+          <Plus /> Adicionar
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
-          <DialogTitle>Agendar Nova Consulta</DialogTitle>
+          <DialogTitle>Adicionar Agendamento</DialogTitle>
         </DialogHeader>
         <AddAppointmentForm
           onSuccess={() => setOpen(false)}

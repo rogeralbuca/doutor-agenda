@@ -2,6 +2,7 @@
 
 import {
   CalendarDays,
+  Gem,
   LayoutDashboard,
   LogOut,
   Stethoscope,
@@ -54,6 +55,14 @@ const items = [
   },
 ];
 
+const others = [
+  {
+    title: "Assinaturas",
+    url: "/subscriptions",
+    icon: Gem,
+  },
+];
+
 export function AppSidebar() {
   const router = useRouter();
   const session = authClient.useSession();
@@ -79,6 +88,21 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild isActive={pathname === item.url}>
+                    <Link href={item.url}>
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+          <SidebarGroupLabel>Outros</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {others.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild isActive={pathname === item.url}>
                     <Link href={item.url}>

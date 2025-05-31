@@ -139,7 +139,7 @@ const AddAppointmentForm = ({
 
         <div className="flex justify-end gap-3">
           <Button type="submit" disabled={isExecuting}>
-            {isExecuting ? "Agendando..." : "Agendar consulta"}
+            {isExecuting ? "Agendando..." : "Salvar"}
           </Button>
         </div>
       </form>
