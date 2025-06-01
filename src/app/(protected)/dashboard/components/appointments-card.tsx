@@ -53,11 +53,6 @@ export function AppointmentsCard({ appointments }: AppointmentsCardProps) {
                     {dayjs(appointment.date).format("DD/MM/YYYY [às] HH:mm")}
                   </p>
                 </div>
-                <div className="text-right">
-                  <p className="text-sm font-medium">
-                    {appointment.doctor.name}
-                  </p>
-                </div>
               </div>
               {index < upcomingAppointments.length - 1 && (
                 <Separator className="mt-4" />

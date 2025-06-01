@@ -97,14 +97,10 @@ export class DashboardService {
                 day: date.format("ddd"),
                 appointments: dayAppointments.length,
             };
-        }).reverse();
-
-        // Filtrar agendamentos futuros no servidor
-        const now = dayjs();
-        const upcomingAppointments = appointments
-            .filter((appointment) => dayjs(appointment.date).isAfter(now))
-            .sort((a, b) => dayjs(a.date).diff(dayjs(b.date)))
-            .slice(0, 5);
+        }).reverse();        // Buscar os 4 últimos agendamentos (mais recentes)
+        const recentAppointments = appointments
+            .sort((a, b) => dayjs(b.date).diff(dayjs(a.date))) // Ordenar do mais recente para o mais antigo
+            .slice(0, 4); // Pegar os 4 primeiros (mais recentes)
 
         return {
             metrics: {
@@ -115,7 +111,7 @@ export class DashboardService {
             },
             doctorsWithAppointments,
             specialties,
-            appointments: upcomingAppointments,
+            appointments: recentAppointments,
             chartData: last7Days,
         };
     }
