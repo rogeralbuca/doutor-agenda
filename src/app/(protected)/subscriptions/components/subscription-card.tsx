@@ -1,9 +1,45 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
+import { createStripeCheckout } from "@/actions/create-stripe-checkout";
+import { useAction } from "next-safe-action/hooks";
+import { useRouter } from "next/navigation";
+import { loadStripe } from "@stripe/stripe-js";
 
-export function SubscriptionCard() {
+interface SubscriptionPlanProps {
+  active?: boolean;
+  className?: string;
+  userEmail: string;
+}
+
+export function SubscriptionCard({
+  active = false,
+  userEmail,
+}: SubscriptionPlanProps) {
+  const router = useRouter();
+  const createStripeCheckoutAction = useAction(createStripeCheckout, {
+    onSuccess: async ({ data }) => {
+      if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+        throw new Error("Stripe publishable key not found");
+      }
+      const stripe = await loadStripe(
+        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+      );
+      if (!stripe) {
+        throw new Error("Stripe not found");
+      }
+      if (!data?.sessionId) {
+        throw new Error("Session ID not found");
+      }
+      await stripe.redirectToCheckout({
+        sessionId: data.sessionId,
+      });
+    },
+  });
+
   const features = [
     "Cadastro de até 3 médicos",
     "Agendamentos ilimitados",
@@ -12,6 +48,16 @@ export function SubscriptionCard() {
     "Confirmação manual",
     "Suporte via e-mail",
   ];
+
+  const handleSubscribeClick = () => {
+    createStripeCheckoutAction.execute();
+  };
+
+  const handleManagePlanClick = () => {
+    router.push(
+      `${process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL_URL}?prefilled_email=${userEmail}`,
+    );
+  };
 
   return (
     <Card className="max-w-md">
@@ -46,8 +92,19 @@ export function SubscriptionCard() {
           ))}
         </div>
 
-        <Button className="w-full" variant="outline">
-          Fazer Upgrade
+        <Button
+          className="w-full"
+          variant="outline"
+          onClick={active ? () => {} : handleSubscribeClick}
+          disabled={createStripeCheckoutAction.isExecuting}
+        >
+          {createStripeCheckoutAction.isExecuting ? (
+            <Loader2 className="mr-1 h-4 w-4 animate-spin" />
+          ) : active ? (
+            "Gerenciar assinatura"
+          ) : (
+            "Fazer assinatura"
+          )}
         </Button>
       </CardContent>
     </Card>
