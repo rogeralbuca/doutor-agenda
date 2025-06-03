@@ -24,6 +24,7 @@ O projeto utiliza as seguintes tecnologias:
 - [React Number Format](https://react-number-format.com/) - Formatação de números e valores
 - [TanStack React Table](https://tanstack.com/table/latest) - Tabelas avançadas com paginação e filtros
 - [TanStack React Query](https://tanstack.com/query/latest) - Gerenciamento de estado servidor
+- [Stripe](https://stripe.com/) - Processamento de pagamentos e assinaturas
 
 ## Arquitetura e Boas Práticas
 
@@ -89,7 +90,18 @@ pnpm install
 ```
 
 3. Configure o banco de dados
+
    - Crie um arquivo `.env.local` com as variáveis de ambiente necessárias para a conexão com o PostgreSQL
+
+4. **Para desenvolvimento completo com Stripe:**
+
+   ```bash
+   # Terminal 1 - Inicie a aplicação
+   npm run dev
+
+   # Terminal 2 - Inicie o Stripe CLI (após configurar)
+   stripe listen --forward-to http://localhost:3000/api/stripe/webhook
+   ```
 
 ### Comandos Disponíveis
 
@@ -150,6 +162,89 @@ Na pasta `.neon/` estão localizados scripts SQL para popular o banco de dados c
 
 **Importante:** Antes de executar os scripts, substitua `'YOUR_CLINIC_ID'` pelo ID real da sua clínica nos arquivos SQL.
 
+### Stripe (Pagamentos e Assinaturas)
+
+O projeto utiliza Stripe para processamento de pagamentos e gerenciamento de assinaturas. Para configurar o Stripe em desenvolvimento:
+
+#### Configuração Inicial
+
+1. **Crie uma conta no Stripe**
+
+   - Acesse [https://dashboard.stripe.com](https://dashboard.stripe.com)
+   - Crie uma conta ou faça login
+
+2. **Configure as chaves de API**
+   - No dashboard do Stripe, vá em **Developers > API keys**
+   - Copie a **Publishable key** e **Secret key** do modo de teste
+   - Adicione as chaves no arquivo `.env.local`:
+
+```bash
+# Stripe Configuration
+STRIPE_PUBLISHABLE_KEY=pk_test_...
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_... # Será configurado após instalar CLI
+```
+
+#### Instalação e Configuração do Stripe CLI
+
+1. **Instale o Stripe CLI**
+
+   - Windows (via chocolatey):
+
+   ```powershell
+   choco install stripe-cli
+   ```
+
+   - Ou baixe diretamente: [https://stripe.com/docs/stripe-cli](https://stripe.com/docs/stripe-cli)
+
+2. **Faça login no Stripe CLI**
+
+   ```bash
+   stripe login
+   ```
+
+3. **Configure webhooks para desenvolvimento local**
+
+   ```bash
+   stripe listen --forward-to http://localhost:3000/api/stripe/webhook
+   ```
+
+   Este comando irá:
+
+   - Gerar um endpoint secret (whsec\_...)
+   - Redirecionar eventos do Stripe para sua aplicação local
+   - Exibir eventos em tempo real no terminal
+
+4. **Copie o webhook secret**
+   - O comando acima exibirá um webhook secret
+   - Adicione-o ao seu `.env.local` como `STRIPE_WEBHOOK_SECRET`
+
+#### Testando Pagamentos
+
+Para testar pagamentos em desenvolvimento, use os cartões de teste do Stripe:
+
+- **Sucesso**: `4242 4242 4242 4242`
+- **Falha**: `4000 0000 0000 0002`
+- **Requires 3D Secure**: `4000 0025 0000 3155`
+
+**Data de expiração**: Qualquer data futura  
+**CVC**: Qualquer código de 3 dígitos  
+**CEP**: Qualquer CEP válido
+
+#### Links Úteis
+
+- [Dashboard Stripe (Teste)](https://dashboard.stripe.com/test/dashboard)
+- [Documentação Stripe](https://stripe.com/docs)
+- [Cartões de Teste](https://stripe.com/docs/testing)
+- [Webhooks](https://stripe.com/docs/webhooks)
+
+#### Eventos Suportados
+
+A aplicação processa os seguintes eventos do Stripe:
+
+- `invoice.paid` - Quando um pagamento é processado com sucesso
+- `customer.subscription.deleted` - Quando uma assinatura é cancelada
+
 ## Estrutura do Projeto
 
 ```
@@ -165,6 +260,8 @@ doutor-agenda/
 │   │   ├── appointments/   # Sistema de agendamentos
 │   │   └── subscriptions/  # Planos e assinaturas
 │   ├── api/         # Rotas de API
+│   │   ├── auth/           # Endpoints de autenticação
+│   │   └── stripe/         # Webhooks e endpoints do Stripe
 │   └── layout.tsx   # Layout principal da aplicação
 ├── components/      # Componentes React reutilizáveis
 │   ├── ui/          # Componentes de UI do shadcn
