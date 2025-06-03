@@ -16,7 +16,7 @@ import AddAppointmentButton from "./components/add-appointment-button";
 import AppointmentsClientPage from "./components/appointments-client-page";
 
 const AppointmentsPage = async () => {
-  const { user, clinic } = await AuthService.getAuthenticatedUserWithClinic();
+  const { clinic } = await AuthService.getAuthenticatedUserWithClinic();
 
   const [appointments, doctors, patients] = await Promise.all([
     AppointmentsService.getAppointmentsByClinicId(clinic.id),

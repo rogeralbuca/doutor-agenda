@@ -14,7 +14,7 @@ import AddPatientButton from "./components/add-patient-button";
 import PatientsList from "./components/patients-list";
 
 const PatientsPage = async () => {
-  const { user, clinic } = await AuthService.getAuthenticatedUserWithClinic();
+  const { clinic } = await AuthService.getAuthenticatedUserWithClinic();
   const patients = await PatientsService.getPatientsByClinicId(clinic.id);
 
   return (

@@ -59,11 +59,6 @@ const DoctorCard = ({ doctor }: DoctorCardProps) => {
     deleteDoctorAction.execute({ id: doctor.id });
   };
 
-  const doctorInitials = doctor.name
-    .split(" ")
-    .map((name) => name[0])
-    .join("");
-
   const availability = getAvailability(doctor);
 
   return (

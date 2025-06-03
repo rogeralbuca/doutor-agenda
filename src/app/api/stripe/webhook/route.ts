@@ -38,6 +38,7 @@ export const POST = async (request: Request) => {
                         };
                     };
                 };
+            console.log("Received invoice.paid event", subscription, subscription_details, customer);
             if (!subscription) {
                 throw new Error("Subscription not found");
             }

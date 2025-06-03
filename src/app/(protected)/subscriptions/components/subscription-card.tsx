@@ -96,7 +96,7 @@ export function SubscriptionCard({
         <Button
           className="w-full"
           variant="outline"
-          onClick={active ? () => {} : handleSubscribeClick}
+          onClick={active ? handleManagePlanClick : handleSubscribeClick}
           disabled={createStripeCheckoutAction.isExecuting}
         >
           {createStripeCheckoutAction.isExecuting ? (

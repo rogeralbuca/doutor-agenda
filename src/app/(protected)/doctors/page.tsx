@@ -14,7 +14,7 @@ import AddDoctorButton from "./components/add-doctor-button";
 import DoctorsList from "./components/doctors-list";
 
 const DoctorsPage = async () => {
-  const { user, clinic } = await AuthService.getAuthenticatedUserWithClinic();
+  const { clinic } = await AuthService.getAuthenticatedUserWithClinic();
   const doctors = await DoctorsService.getDoctorsByClinicId(clinic.id);
   return (
     <PageContainer>

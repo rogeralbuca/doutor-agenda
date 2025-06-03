@@ -1,6 +1,5 @@
 "use client";
 
-import dayjs from "dayjs";
 import { Calendar, Search, X } from "lucide-react";
 import { useState } from "react";
 
@@ -52,7 +51,7 @@ export function AppointmentsFilters({
     <div className="mb-6 flex flex-col gap-4">
       <div className="flex flex-col gap-4 sm:flex-row">
         <div className="relative flex-1">
-          <Search className="text-muted-foreground absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" />
+          <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
           <Input
             placeholder="Buscar por paciente ou médico..."
             value={search}
@@ -63,7 +62,7 @@ export function AppointmentsFilters({
 
         <div className="flex gap-2">
           <div className="relative">
-            <Calendar className="text-muted-foreground absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" />
+            <Calendar className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
             <Input
               type="date"
               placeholder="Data inicial"
@@ -74,7 +73,7 @@ export function AppointmentsFilters({
           </div>
 
           <div className="relative">
-            <Calendar className="text-muted-foreground absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" />
+            <Calendar className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
             <Input
               type="date"
               placeholder="Data final"
