@@ -29,6 +29,7 @@ import {
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import { patientsTable } from "@/db/schema";
+
 import { UserAvatar } from "../../components/user-avatar";
 import UpsertPatientForm from "./upsert-patient-form";
 

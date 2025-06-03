@@ -33,12 +33,11 @@ import {
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import { doctorsTable } from "@/db/schema";
-
-import { getAvailability } from "../helpers/availability";
-
 import { formatCurrencyInCents } from "@/helpers/currency";
-import UpsertDoctorForm from "./upsert-doctor-form";
+
 import { UserAvatar } from "../../components/user-avatar";
+import { getAvailability } from "../helpers/availability";
+import UpsertDoctorForm from "./upsert-doctor-form";
 
 interface DoctorCardProps {
   doctor: typeof doctorsTable.$inferSelect;

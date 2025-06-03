@@ -1,8 +1,9 @@
 "use client";
 
+import { Calendar, DollarSign, Stethoscope, Users } from "lucide-react";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { formatCurrencyInCents } from "@/helpers/currency";
-import { Calendar, DollarSign, Stethoscope, Users } from "lucide-react";
 
 interface DashboardMetricsProps {
   totalRevenue: number;

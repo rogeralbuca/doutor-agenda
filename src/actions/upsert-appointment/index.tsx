@@ -9,6 +9,7 @@ import { db } from "@/db";
 import { appointmentsTable } from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { actionClient } from "@/lib/next-safe-action";
+
 import { upsertAppointmentSchema } from "./schema";
 
 dayjs.extend(utc);

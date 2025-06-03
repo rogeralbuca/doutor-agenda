@@ -1,6 +1,7 @@
+import { eq } from "drizzle-orm";
+
 import { db } from "@/db";
 import { doctorsTable } from "@/db/schema";
-import { eq } from "drizzle-orm";
 
 export class DoctorsService {
     static async getDoctorsByClinicId(clinicId: string) {

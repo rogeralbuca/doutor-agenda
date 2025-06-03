@@ -1,11 +1,13 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import dayjs from "dayjs";
+import { useMemo,useState } from "react";
+
 import { DataTable } from "@/components/ui/data-table";
 import { appointmentsTable, doctorsTable, patientsTable } from "@/db/schema";
-import { createColumns } from "./table-columns";
+
 import AppointmentsFilters from "./appointments-filters";
-import dayjs from "dayjs";
+import { createColumns } from "./table-columns";
 
 type AppointmentWithRelations = typeof appointmentsTable.$inferSelect & {
   patient: typeof patientsTable.$inferSelect;

@@ -4,12 +4,13 @@ import { Users } from "lucide-react";
 import {
   Bar,
   BarChart,
+  CartesianGrid,
   ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
 } from "recharts";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface AppointmentsChartProps {

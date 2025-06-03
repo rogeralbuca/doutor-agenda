@@ -1,13 +1,15 @@
-import { db } from "@/db";
+import "dayjs/locale/pt-br";
+
+import dayjs from "dayjs";
 import { eq } from "drizzle-orm";
+
+import { db } from "@/db";
 import {
     appointmentsTable,
     doctorsTable,
     patientsTable,
     usersToClinicsTable,
 } from "@/db/schema";
-import dayjs from "dayjs";
-import "dayjs/locale/pt-br";
 
 dayjs.locale("pt-br");
 

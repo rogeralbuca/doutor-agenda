@@ -1,9 +1,10 @@
-import { auth } from "@/lib/auth";
+import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+
 import { db } from "@/db";
 import { usersToClinicsTable } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { auth } from "@/lib/auth";
 
 export class AuthService {
     static async getAuthenticatedUser() {

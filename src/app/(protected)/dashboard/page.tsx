@@ -8,11 +8,12 @@ import {
 } from "@/components/ui/page-container";
 import { AuthService } from "@/services/auth-service";
 import { DashboardService } from "@/services/dashboard-service";
-import { DashboardMetrics } from "./components/dashboard-metrics";
+
+import { AppointmentsCard } from "./components/appointments-card";
 import { AppointmentsChart } from "./components/appointments-chart";
+import { DashboardMetrics } from "./components/dashboard-metrics";
 import { DoctorsCard } from "./components/doctors-card";
 import { SpecialtiesCard } from "./components/specialties-card";
-import { AppointmentsCard } from "./components/appointments-card";
 
 const DashboardPage = async () => {
   const { user } = await AuthService.getAuthenticatedUserWithClinic();

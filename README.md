@@ -25,6 +25,31 @@ O projeto utiliza as seguintes tecnologias:
 - [TanStack React Table](https://tanstack.com/table/latest) - Tabelas avançadas com paginação e filtros
 - [TanStack React Query](https://tanstack.com/query/latest) - Gerenciamento de estado servidor
 
+## Arquitetura e Boas Práticas
+
+O projeto segue os princípios **SOLID** e **Clean Code**, implementando uma arquitetura em camadas bem estruturada:
+
+### Service Layer
+
+- **Separação de responsabilidades**: Cada service tem uma responsabilidade específica
+- **Encapsulamento**: Todas as operações de banco de dados são isoladas nos services
+- **Reutilização**: Services podem ser usados em diferentes partes da aplicação
+- **Testabilidade**: Lógica de negócio separada da apresentação
+
+Services implementados:
+
+- `AuthService` - Gerenciamento de autenticação e sessões
+- `DoctorsService` - Operações relacionadas a médicos
+- `PatientsService` - Gerenciamento de pacientes
+- `AppointmentsService` - Controle de agendamentos
+- `DashboardService` - Dados agregados para o dashboard
+
+### Princípios Aplicados
+
+- **Single Responsibility Principle (SRP)**: Cada classe/service tem uma única responsabilidade
+- **Open/Closed Principle (OCP)**: Código aberto para extensão, fechado para modificação
+- **Dependency Inversion Principle (DIP)**: Components dependem de abstrações, não de implementações concretas
+
 ## Autenticação
 
 O projeto implementa um sistema de autenticação completo com [Better Auth](https://www.better-auth.com/), oferecendo:
@@ -72,6 +97,40 @@ pnpm install
 - `npm run build` - Compila o projeto para produção
 - `npm run start` - Inicia o servidor em modo de produção
 - `npm run lint` - Executa o linter para verificar o código
+- `npm run lint:fix` - Executa o linter e corrige automaticamente problemas que podem ser resolvidos
+
+### Qualidade de Código (ESLint)
+
+O projeto utiliza ESLint com configurações otimizadas para garantir qualidade e consistência do código:
+
+#### Plugins e Configurações
+
+- **ESLint Core**: Linting básico e regras fundamentais
+- **@typescript-eslint**: Regras específicas para TypeScript
+- **eslint-plugin-react**: Regras para React e JSX
+- **eslint-plugin-simple-import-sort**: Organização automática de imports
+- **eslint-config-next**: Configurações otimizadas para Next.js
+
+#### Funcionalidades
+
+- **Auto-fix imports**: Organização automática de imports por categoria (externos, internos, relativos)
+- **TypeScript validation**: Verificação de tipos e regras específicas do TypeScript
+- **React best practices**: Validação de hooks, componentes e padrões React
+- **Next.js optimization**: Regras específicas para performance e SEO
+
+#### Configuração de Imports
+
+Os imports são automaticamente organizados em:
+
+1. Bibliotecas externas (react, next, etc.)
+2. Imports internos do projeto (@/)
+3. Imports relativos (./, ../)
+
+Para organizar os imports automaticamente:
+
+```bash
+npm run lint:fix
+```
 
 ### Banco de Dados (Drizzle ORM)
 
@@ -96,31 +155,88 @@ Na pasta `.neon/` estão localizados scripts SQL para popular o banco de dados c
 ```
 doutor-agenda/
 ├── .neon/           # Scripts SQL para popular o banco com dados de exemplo
-├── actions/          # Server actions type-safe com Next Safe Action
-├── app/              # Aplicação Next.js e rotas da aplicação
-│   ├── (auth)/       # Rotas de autenticação (login, registro, etc.)
-│   ├── (dashboard)/  # Área restrita do sistema após login
-│   ├── api/          # Rotas de API
-│   └── layout.tsx    # Layout principal da aplicação
-├── components/       # Componentes React reutilizáveis
-│   ├── ui/           # Componentes de UI do shadcn
-│   ├── forms/        # Componentes de formulário
-│   └── shared/       # Componentes compartilhados
-├── config/           # Arquivos de configuração
-├── db/               # Configuração do Drizzle ORM e esquemas
-│   ├── migrations/   # Migrações do banco de dados
-│   ├── schema/       # Definição dos esquemas das tabelas
-│   └── index.ts      # Configuração de conexão
-├── emails/           # Templates de emails
-├── hooks/            # Custom hooks React
-├── lib/              # Utilitários e funções auxiliares
-├── middleware.ts     # Middleware Next.js para proteção de rotas
-├── providers/        # Providers React (temas, autenticação)
-├── public/           # Arquivos estáticos
-├── schemas/          # Esquemas de validação Zod
-├── styles/           # Estilos globais
-└── types/            # Definições de tipos TypeScript
+├── actions/         # Server actions type-safe com Next Safe Action
+├── app/             # Aplicação Next.js e rotas da aplicação
+│   ├── (auth)/      # Rotas de autenticação (login, registro, etc.)
+│   ├── (protected)/ # Área restrita do sistema após login
+│   │   ├── dashboard/      # Dashboard principal com visão geral
+│   │   ├── patients/       # Gerenciamento de pacientes
+│   │   ├── doctors/        # Gerenciamento de médicos
+│   │   ├── appointments/   # Sistema de agendamentos
+│   │   └── subscriptions/  # Planos e assinaturas
+│   ├── api/         # Rotas de API
+│   └── layout.tsx   # Layout principal da aplicação
+├── components/      # Componentes React reutilizáveis
+│   ├── ui/          # Componentes de UI do shadcn
+│   ├── forms/       # Componentes de formulário
+│   └── shared/      # Componentes compartilhados
+├── config/          # Arquivos de configuração
+├── db/              # Configuração do Drizzle ORM e esquemas
+│   ├── migrations/  # Migrações do banco de dados
+│   ├── schema/      # Definição dos esquemas das tabelas
+│   └── index.ts     # Configuração de conexão
+├── emails/          # Templates de emails
+├── hooks/           # Custom hooks React
+├── lib/             # Utilitários e funções auxiliares
+├── middleware.ts    # Middleware Next.js para proteção de rotas
+├── providers/       # Providers React (temas, autenticação)
+├── public/          # Arquivos estáticos
+├── schemas/         # Esquemas de validação Zod
+├── services/        # Service Layer - Lógica de negócio e acesso a dados
+│   ├── auth-service.ts        # Serviços de autenticação
+│   ├── doctors-service.ts     # Operações de médicos
+│   ├── patients-service.ts    # Operações de pacientes
+│   ├── appointments-service.ts # Operações de agendamentos
+│   └── dashboard-service.ts   # Dados do dashboard
+├── styles/          # Estilos globais
+└── types/           # Definições de tipos TypeScript
 ```
+
+## Funcionalidades
+
+### Sistema de Autenticação
+
+- Login/Registro de usuários
+- Recuperação de senha
+- Autenticação baseada em JWT
+- Proteção de rotas
+- Gestão de sessões seguras
+- Sistema de clínicas multi-tenant
+
+### Dashboard
+
+- Visão geral dos agendamentos recentes
+- Indicadores visuais de status (Hoje/Futuro/Realizado)
+- Cards informativos com métricas importantes
+- Interface responsiva e intuitiva
+
+### Gestão de Pacientes
+
+- Cadastro completo de pacientes
+- Listagem com busca e filtros
+- Histórico de consultas
+- Informações de contato
+
+### Gestão de Médicos
+
+- Cadastro de profissionais
+- Especialidades médicas
+- Controle de disponibilidade
+- Perfis detalhados
+
+### Sistema de Agendamentos
+
+- Agendamento de consultas
+- Visualização de agenda
+- Status de consultas
+- Notificações automáticas
+
+### Planos e Assinaturas
+
+- Visualização de planos disponíveis
+- Upgrade de assinatura
+- Controle de recursos por plano
+- Interface de pagamento
 
 ## Padrões de Desenvolvimento
 
@@ -161,6 +277,32 @@ npx shadcn-ui@latest add [nome-do-componente]
 ### Estilização e Temas
 
 O projeto utiliza o sistema de temas do shadcn/ui. Os temas podem ser visualizados e customizados em: https://ui.shadcn.com/themes
+
+### Service Layer Pattern
+
+Para manter a qualidade e organização do código, sempre utilize os services para operações de banco de dados:
+
+```typescript
+// ❌ Não faça - Query direta no componente
+const appointments = await db.query.appointments.findMany({...});
+
+// ✅ Faça - Use o service apropriado
+const appointments = await AppointmentsService.getRecentAppointments(clinicId);
+```
+
+### Tratamento de Erros
+
+Implemente sempre tratamento de erro adequado nos services:
+
+```typescript
+try {
+  const result = await SomeService.operation();
+  return result;
+} catch (error) {
+  console.error("Error in operation:", error);
+  throw new Error("Failed to complete operation");
+}
+```
 
 ## Licença
 

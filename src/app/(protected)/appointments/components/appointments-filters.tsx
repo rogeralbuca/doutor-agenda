@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Search, Calendar, X } from "lucide-react";
 import dayjs from "dayjs";
+import { Calendar, Search, X } from "lucide-react";
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 interface AppointmentsFiltersProps {
   onFilterChange: (filters: {

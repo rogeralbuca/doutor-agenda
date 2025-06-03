@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { doctorsTable } from "@/db/schema";
+import { useMemo,useState } from "react";
+
 import SearchFilter from "@/components/ui/search-filter";
+import { doctorsTable } from "@/db/schema";
+
 import DoctorCard from "./doctor-card";
 
 interface DoctorsListProps {

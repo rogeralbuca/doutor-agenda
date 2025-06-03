@@ -1,13 +1,14 @@
 "use client";
 
+import { loadStripe } from "@stripe/stripe-js";
+import { Check, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useAction } from "next-safe-action/hooks";
+
+import { createStripeCheckout } from "@/actions/create-stripe-checkout";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Check, Loader2 } from "lucide-react";
-import { createStripeCheckout } from "@/actions/create-stripe-checkout";
-import { useAction } from "next-safe-action/hooks";
-import { useRouter } from "next/navigation";
-import { loadStripe } from "@stripe/stripe-js";
 
 interface SubscriptionPlanProps {
   active?: boolean;
@@ -63,7 +64,7 @@ export function SubscriptionCard({
     <Card className="max-w-md">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg">Essential</CardTitle>
+          <CardTitle className="text-lg">Basic</CardTitle>
           <Badge
             variant="secondary"
             className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100"

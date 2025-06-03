@@ -12,6 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { doctorsTable, patientsTable } from "@/db/schema";
+
 import AddAppointmentForm from "./add-appointment-form";
 
 interface AddAppointmentButtonProps {

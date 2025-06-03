@@ -1,3 +1,6 @@
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+
 import {
   PageContainer,
   PageContent,
@@ -6,10 +9,9 @@ import {
   PageHeaderContent,
   PageTitle,
 } from "@/components/ui/page-container";
-import { SubscriptionCard } from "./components/subscription-card";
-import { redirect } from "next/navigation";
-import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
+
+import { SubscriptionCard } from "./components/subscription-card";
 
 const SubscriptionsPage = async () => {
   const session = await auth.api.getSession({
@@ -39,7 +41,7 @@ const SubscriptionsPage = async () => {
       <PageContent>
         <div className="grid gap-6">
           <SubscriptionCard
-            active={session.user.plan === "essential"}
+            active={session.user.plan === "basic"}
             userEmail={session.user.email}
           />
         </div>

@@ -1,7 +1,25 @@
 "use client";
 
-import { Eye, MoreHorizontal, Edit, Trash2 } from "lucide-react";
+import "dayjs/locale/pt-br";
 
+import dayjs from "dayjs";
+import { Edit, Eye, MoreHorizontal, Trash2 } from "lucide-react";
+import { useAction } from "next-safe-action/hooks";
+import { useState } from "react";
+import { toast } from "sonner";
+
+import { deleteAppointmentAction } from "@/actions/delete-appointment";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,25 +34,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { appointmentsTable, doctorsTable, patientsTable } from "@/db/schema";
-import dayjs from "dayjs";
-import "dayjs/locale/pt-br";
 import { formatCurrencyInCents } from "@/helpers/currency";
-import { useState } from "react";
-import { deleteAppointmentAction } from "@/actions/delete-appointment";
-import { useAction } from "next-safe-action/hooks";
-import { toast } from "sonner";
+
 import EditAppointmentForm from "./edit-appointment-form";
 
 dayjs.locale("pt-br");

@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { PatternFormat } from "react-number-format";
 import { toast } from "sonner";
@@ -33,7 +34,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { patientsTable } from "@/db/schema";
-import { useEffect } from "react";
 
 const formSchema = z.object({
   name: z.string().trim().min(1, {

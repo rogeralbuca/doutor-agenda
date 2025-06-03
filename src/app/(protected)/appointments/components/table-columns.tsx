@@ -1,10 +1,13 @@
 "use client";
 
+import "dayjs/locale/pt-br";
+
 import { ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
-import "dayjs/locale/pt-br";
-import { formatCurrencyInCents } from "@/helpers/currency";
+
 import { appointmentsTable, doctorsTable, patientsTable } from "@/db/schema";
+import { formatCurrencyInCents } from "@/helpers/currency";
+
 import TableActions from "./table-actions";
 
 dayjs.locale("pt-br");

@@ -7,10 +7,11 @@ import {
   PageHeaderContent,
   PageTitle,
 } from "@/components/ui/page-container";
-import { AuthService } from "@/services/auth-service";
 import { AppointmentsService } from "@/services/appointments-service";
+import { AuthService } from "@/services/auth-service";
 import { DoctorsService } from "@/services/doctors-service";
 import { PatientsService } from "@/services/patients-service";
+
 import AddAppointmentButton from "./components/add-appointment-button";
 import AppointmentsClientPage from "./components/appointments-client-page";
 

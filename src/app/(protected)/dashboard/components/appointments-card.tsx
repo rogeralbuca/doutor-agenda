@@ -1,10 +1,13 @@
+import "dayjs/locale/pt-br";
+
+import dayjs from "dayjs";
+import { Calendar } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { appointmentsTable, patientsTable, doctorsTable } from "@/db/schema";
-import { Calendar } from "lucide-react";
-import dayjs from "dayjs";
-import "dayjs/locale/pt-br";
+import { appointmentsTable, doctorsTable,patientsTable } from "@/db/schema";
+
 import { UserAvatar } from "../../components/user-avatar";
 
 dayjs.locale("pt-br");

@@ -1,11 +1,11 @@
-import { ReactQueryProvider } from "@/providers/react-query";
-import { HydrationWarningSupressor } from "@/components/ui/hydration-warning-supressor";
 import "./globals.css";
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-
 import { Toaster } from "sonner";
+
+import { HydrationWarningSupressor } from "@/components/ui/hydration-warning-supressor";
+import { ReactQueryProvider } from "@/providers/react-query";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

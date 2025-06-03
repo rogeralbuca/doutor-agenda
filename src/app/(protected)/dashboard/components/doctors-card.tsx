@@ -1,11 +1,13 @@
 "use client";
 
+import { Stethoscope } from "lucide-react";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { doctorsTable } from "@/db/schema";
-import { Stethoscope } from "lucide-react";
+
 import { UserAvatar } from "../../components/user-avatar";
 
 interface DoctorsCardProps {

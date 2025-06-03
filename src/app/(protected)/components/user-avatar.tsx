@@ -1,7 +1,7 @@
 "use client";
 
-import { getNameInitials } from "@/helpers/name-initials-helper";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { getNameInitials } from "@/helpers/name-initials-helper";
 
 export function UserAvatar({ userName }: { userName: string }) {
   const initials = getNameInitials(userName);
